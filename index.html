@@ -6,9 +6,15 @@
 		<script src="codebase/touchui.js" type="text/javascript"></script>
 	</head>
 	<body>
+		<div id="tpl_container_index" style="display:none">
+			<div style="float:left; width:30%; text-align:center">Posted by <b>#nickname#</b><br/>at <b>#createDate#</b></div>
+			<div style="float:right; width:70%">#content#</div>
+			<div style="clear:both"></div>
+		</div>
+		
 		<script type="text/javascript" charset="utf-8"> 
 			var ui_guestbook_index = {
-				id: 'app', view: 'layout', height: 482, width: 322,
+				id: 'app', view: 'layout',
 				rows: [
 					{
 						view: 'layout', type: 'wide',
@@ -19,10 +25,20 @@
 									{view: 'label', label: 'Guestbook', id: 'control_label_2'}
 								], id: 'toolbar_2'
 							}, {
-								view: 'dataview', template: '<span class=\'dhx_strong\'>#Maintainer#</span>#Package# <span class=\'dhx_light\'>#Version#</span>', select: 'single',
-								type: {height: 35, width: 137, padding: 7, margin: 0},
-								id: 'dataview_2', datatype: 'json'/*, url: './data/sample_dataview.json'*/
-							}, {view: 'button', label: 'New Guestbook Entry', id: 'control_button_3'}
+								view: 'dataview',
+								template: 'html->tpl_container_index',
+								select: 'single',
+								type: {height: 50, width: '100%', padding: 7, margin: 0},
+								id: 'dataview_2',
+								datatype: 'json',
+								data: [
+									{nickname: 'jjoe64', createDate: '2011-08-05', content: 'I like dhtmlx!'}
+								]
+							}, {
+								view: 'button',
+								label: 'New Guestbook Entry',
+								id: 'control_button_3'
+							}
 						], id: 'layout_2'
 					}
 				]
