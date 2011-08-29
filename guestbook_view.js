@@ -20,7 +20,7 @@ function GuestbookView() {
 				template: 'html->tpl_container_index',
 				select: 'single',
 				type: {height: 50, width: '100%', padding: 7, margin: 0},
-				id: 'dataview_2',
+				id: 'dataview_index',
 				datatype: 'json',
 				data: [
 					{nickname: 'jjoe64', createDate: '2011-08-05', content: 'I like dhtmlx!'}
@@ -53,7 +53,12 @@ function GuestbookView() {
 					{ view: 'text', label: 'Subject', labelPosition: 'left', labelAlign: 'left', id: 'txt_subject'},
 					{ view: 'textarea', label: 'Content', id: 'txt_content'}
 				],
-				id: 'form_2'
+				rules: {
+					txt_nickname: dhx.rules.isNotEmpty,
+					txt_subject: dhx.rules.isNotEmpty,
+					txt_content: dhx.rules.isNotEmpty
+				},
+				id: 'form_new_entry'
 			}, {
 				view: 'button',
 				label: 'Submit',
@@ -92,7 +97,7 @@ GuestbookView.prototype.showGuestbookIndexUI = function() {
 	$$('ui_guestbook_index').show()
 }
 
-GuestbookView.prototype.initEventHandler = function() {
+GuestbookView.prototype.initEventHandler = function(controller) {
 	// sets event handler 'new guestbook entry'
 	$$('btn_new_guestbook_entry').attachEvent('onItemClick', this.showGuestbookEntryUI)
 	
@@ -102,12 +107,29 @@ GuestbookView.prototype.initEventHandler = function() {
 	// 'submit'
 	var guestbook_view_this = this
 	$$('btn_submit').attachEvent('onItemClick', function() {
-		alert(guestbook_view_this.getNewModel())
+		controller.newGuestbookEntry(guestbook_view_this.getNewModel())
 	})
 }
 
+/**
+ * generate a model from the form input data
+ */
 GuestbookView.prototype.getNewModel = function() {
-	return 'TODO'
+	if ($$('form_new_entry').validate() === false) return false
+	return {
+		nickname: $$('txt_nickname').getValue(),
+		createDate: new Date(),
+		content: $$('txt_content').getValue()
+	}
 }
+
+/**
+ * add a new entry to the index dataview
+ * @param mdl new model
+ */
+GuestbookView.prototype.addEntry = function(mdl) {
+	$$('dataview_index').add(mdl)
+}
+
 
 
