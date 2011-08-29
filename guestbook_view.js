@@ -22,9 +22,7 @@ function GuestbookView() {
 				type: {height: 50, width: '100%', padding: 7, margin: 0},
 				id: 'dataview_index',
 				datatype: 'json',
-				data: [
-					{nickname: 'jjoe64', createDate: '2011-08-05', content: 'I like dhtmlx!'}
-				]
+				data: [] // data will be loaded
 			}, {
 				view: 'button',
 				label: 'New Guestbook Entry',
@@ -131,5 +129,10 @@ GuestbookView.prototype.addEntry = function(mdl) {
 	$$('dataview_index').add(mdl)
 }
 
-
+/**
+ * @return the data of the list
+ */
+GuestbookView.prototype.getEntries = function() {
+	return $$('dataview_index').data.serialize()
+}
 
