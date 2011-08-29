@@ -5,12 +5,13 @@
 function GuestbookController() {
 	this.guestbook_view = new GuestbookView()
 	dhx.ui(this.guestbook_view.getRoot())
+	
+	this.guestbook_view.initEventHandler()
 }
 
 /**
- * let the user creates a new guestbook entry
+ * submit a new guestbook entry
  */
 GuestbookController.prototype.newGuestbookEntry = function() {
-	this.guestbook_view.showGuestbookEntryUI()
 }
 

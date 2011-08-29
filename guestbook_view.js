@@ -28,7 +28,7 @@ function GuestbookView() {
 			}, {
 				view: 'button',
 				label: 'New Guestbook Entry',
-				id: 'control_button_3'
+				id: 'btn_new_guestbook_entry'
 			}
 		],
 		id: 'ui_guestbook_index'
@@ -57,7 +57,7 @@ function GuestbookView() {
 			}, {
 				view: 'button',
 				label: 'Submit',
-				id: 'control_button_3'
+				id: 'btn_submit'
 			}
 		],
 		id: 'ui_guestbook_entry'
@@ -78,7 +78,36 @@ GuestbookView.prototype.getRoot = function() {
 	return this.ui_root
 }
 
+/**
+ * shows the guetsbook entry ui
+ */
 GuestbookView.prototype.showGuestbookEntryUI = function() {
 	$$('ui_guestbook_entry').show()
 }
+
+/**
+ * shows the guetsbook entry ui
+ */
+GuestbookView.prototype.showGuestbookIndexUI = function() {
+	$$('ui_guestbook_index').show()
+}
+
+GuestbookView.prototype.initEventHandler = function() {
+	// sets event handler 'new guestbook entry'
+	$$('btn_new_guestbook_entry').attachEvent('onItemClick', this.showGuestbookEntryUI)
+	
+	// 'back'
+	$$('btn_back').attachEvent('onItemClick', this.showGuestbookIndexUI)
+	
+	// 'submit'
+	var guestbook_view_this = this
+	$$('btn_submit').attachEvent('onItemClick', function() {
+		alert(guestbook_view_this.getNewModel())
+	})
+}
+
+GuestbookView.prototype.getNewModel = function() {
+	return 'TODO'
+}
+
 
